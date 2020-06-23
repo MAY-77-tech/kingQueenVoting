@@ -28,8 +28,10 @@ class HomeViewModel : ViewModel() {
 
             override fun onResponse(call: Call<QueenDetails>, response: Response<QueenDetails>) {
 
-                var movieList = response.body()
-                queenDetail.value = movieList
+                var queenDetails = response.body()
+                queenDetail.value = queenDetails
+
+                Log.d("QueenDetailList>>>>>",queenDetails.toString())
             }
         })
     }

@@ -1,6 +1,7 @@
 package com.example.kingqueenvoting.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +13,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.kingqueenvoting.R
 import com.example.kingqueenvoting.adapter.QueenAdapter
 import com.example.kingqueenvoting.model.QueenDetailsItem
-import com.example.kingqueenvoting.ui.queen.QueenViewModel
 import kotlinx.android.synthetic.main.queen_home.*
 
 class HomeFragment : Fragment(),QueenAdapter.ClickerListener {
 
-    private lateinit var viewModel: QueenViewModel
+    private lateinit var homeViewModel: HomeViewModel
     private lateinit var qadapter: QueenAdapter
 
     override fun onCreateView(
@@ -41,21 +41,25 @@ class HomeFragment : Fragment(),QueenAdapter.ClickerListener {
     }
 
     fun obserVM(){
-        viewModel = ViewModelProvider(this).get(QueenViewModel::class.java)
-        viewModel.loadingQn()
-        viewModel.getQn().observe(viewLifecycleOwner, Observer {
+       homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel.loadingQn()
+        homeViewModel.getQn().observe(viewLifecycleOwner, Observer {
             qadapter.updateList(it)
+
+            Log.d("updateList>>>>",it.toString())
+            qadapter.setOnClickListener(this)
+
         })
     }
 
     override fun onClick(queenList: QueenDetailsItem) {
-            var queen = queenList
             var action = HomeFragmentDirections.actionNavHomeToQueenFragment(
                 queenList.id,
-            queenList.name,
-            queenList.vote_count,
-            queenList.img_url,
-               queenList.vote_time_status
+                queenList.name,
+                queenList.vote_count,
+                queenList.img_url,
+               queenList.vote_time_status,
+                queenList.`class`
             )
             findNavController().navigate(action)
     }

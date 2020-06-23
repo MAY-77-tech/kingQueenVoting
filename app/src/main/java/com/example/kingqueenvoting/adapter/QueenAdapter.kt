@@ -1,12 +1,13 @@
 package com.example.kingqueenvoting.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kingqueenvoting.R
-import com.example.kingqueenvoting.model.QueenDetails
 import com.example.kingqueenvoting.model.QueenDetailsItem
+import com.example.kingqueenvoting.ui.gallery.GalleryFragment
 import com.example.kingqueenvoting.ui.home.HomeFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.queen_item.view.*
@@ -28,6 +29,8 @@ class QueenAdapter(var queenList: List<QueenDetailsItem> = ArrayList()): Recycle
                 .into(itemView.queen_image)
             itemView.queen_name.text = queenDetails.name
             itemView.queen_id.text = queenDetails.id
+
+            Log.d("Id>>>>>>",queenDetails.id)
         }
 
         init {

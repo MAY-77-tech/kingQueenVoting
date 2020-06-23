@@ -13,24 +13,26 @@ class QueenViewModel : ViewModel() {
 
     var queenDetail: MutableLiveData<QueenDetails> = MutableLiveData()
 
-    fun getQn():MutableLiveData<QueenDetails> = queenDetail
+    fun getMD(): MutableLiveData<QueenDetails> = queenDetail
 
-    var qnApi = QueenApi()
+    var qApi = QueenApi()
 
-    fun loadingQn(){
+    fun qLoading(id: Int, apiKey: String){
 
-        var quApiCall = qnApi.getQueen()
+        var qApiCall = qApi.getQueen()
 
-        quApiCall.enqueue(object : Callback<QueenDetails>{
+        qApiCall.enqueue(object :Callback<QueenDetails>{
             override fun onFailure(call: Call<QueenDetails>, t: Throwable) {
-                Log.d("Error", t.toString())
+
             }
 
             override fun onResponse(call: Call<QueenDetails>, response: Response<QueenDetails>) {
-
-                var movieList = response.body()
-                queenDetail.value = movieList
+                var queenList = response.body()
+                Log.d("queenList",queenList.toString())
+                queenDetail.value = queenList
+                Log.d("Response", response.body().toString())
             }
+
         })
     }
 }

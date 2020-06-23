@@ -1,6 +1,6 @@
 package com.example.kingqueenvoting.model
 
-data class QueenDetailsItem(
+data class KingDetailsItem(
     val `class`: String,
     val id: String,
     val img_url: String,
